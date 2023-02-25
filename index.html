@@ -43,8 +43,8 @@
 
         // display it in btn id
         function display_data(){
-            document.getElementById("btn").innerHTML = "acc_data : " + acc_data + "\n";
-            document.getElementById("btn").innerHTML += "gyro_data: " + gyro_data + "\n";
+            document.getElementById("btn").innerHTML = "acc_data : " + JSON.stringify(acc_data) + "\n";
+            // document.getElementById("btn").innerHTML += "gyro_data: " + gyro_data + "\n";
         }
         display_data();
 
