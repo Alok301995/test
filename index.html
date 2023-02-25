@@ -1,67 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-
-    <p id="btn">hii this is the webiste</p>
-
+  </head>
+  <body>
+    <button id="start_demo" class="btn">Start</button>
+    <p id="data"></p>
 
     <script>
-        // get accelerometer data and display in id btn
-        
-        let acc_data = [];
-        let gyro_data = [];
+      let data_point = [];
+      let data_display = document.getElementById("data");
+    //   let counterElement = document.getElementById("num-observed-events");
+    //   let data_p = document.body.querySelector(".data");
+      function handleOrientation(event) {
+        //    updateFieldIfNotNull("Orientation_a", event.alpha);
+        //    updateFieldIfNotNull("Orientation_b", event.beta);
+        //    updateFieldIfNotNull("Orientation_g", event.gamma);
+        incrementEventCount();
 
-        // get accelerometer data and display in id btn
-        window.addEventListener("devicemotion", handleMotion, true);
-        function handleMotion(event) {
-            var x = event.acceleration.x;
-            var y = event.acceleration.y;
-            var z = event.acceleration.z;
-            document.getElementById("btn").innerHTML = "x : " + x + "\n";
-            document.getElementById("btn").innerHTML += "y: " + y + "\n";
-            document.getElementById("btn").innerHTML += "z: " + z + "\n";
-            // acc_data.push([x,y,z]);
+        //    console.log(event.alpha, event.beta, event.gamma);
+      }
+
+      //  function incrementEventCount() {
+      //    let eventCount = parseInt(counterElement.innerHTML);
+      //    counterElement.innerHTML = eventCount + 1;
+      //  }
+
+      function handleMotion(event) {
+        // data_point.push([
+        //   event.accelerationIncludingGravity.x,
+        //   event.accelerationIncludingGravity.y,
+        //   event.accelerationIncludingGravity.z,
+        // ]);
+        // data_point.data.push([event.accelerationIncludingGravity.x,
+        //   event.accelerationIncludingGravity.y,
+        //   event.accelerationIncludingGravity.z]);
+
+        data_point.push([
+          event.acceleration.x,
+          event.acceleration.y,
+          event.acceleration.z,
+        ]);
+        //    incrementEventCount();
+      }
+
+      let is_running = false;
+      let demo_button = document.getElementById("start_demo");
+
+      demo_button.onclick = function (e) {
+        e.preventDefault();
+
+        // Request permission for iOS 13+ devices
+        if (
+          DeviceMotionEvent &&
+          typeof DeviceMotionEvent.requestPermission === "function"
+        ) {
+          DeviceMotionEvent.requestPermission();
         }
 
-        // get gyroscope data and display in id btn
-        window.addEventListener("deviceorientation", handleOrientation, true);
-        function handleOrientation(event) {
-            var alpha = event.alpha;
-            var beta = event.beta;
-            var gamma = event.gamma;
-            // document.getElementById("btn").innerHTML = "alpha : " + alpha + "\n";
-            // document.getElementById("btn").innerHTML += "beta: " + beta + "\n";
-            // document.getElementById("btn").innerHTML += "gamma: " + gamma + "\n";
-            gyro_data.push([alpha,beta,gamma]);
+        if (is_running) {
+          window.removeEventListener("devicemotion", handleMotion);
+          window.removeEventListener("deviceorientation", handleOrientation);
+          demo_button.innerHTML = "Start demo";
+          demo_button.classList.add("btn-success");
+          demo_button.classList.remove("btn-danger");
+
+          console.log(data_point);
+
+          is_running = false;
+        } else {
+          window.addEventListener("devicemotion", handleMotion);
+          window.addEventListener("deviceorientation", handleOrientation);
+          document.getElementById("start_demo").innerHTML = "Stop";
+          //   demo_button.classList.remove("btn-success");
+          //   demo_button.classList.add("btn-danger");
+
+            data_display.innerHTML = JSON.stringify(data_point);
+
+          is_running = true;
+        //   counterElement.innerHTML = 0;
+        //   data_point.data.length = 0;
+          data_display.innerHTML = "";
         }
-
-        // display it in btn id
-        function display_data(){
-            document.getElementById("btn").innerHTML = "acc_data : " + JSON.stringify(acc_data) + "\n";
-            // document.getElementById("btn").innerHTML += "gyro_data: " + gyro_data + "\n";
-        }
-        // display_data();
-
-        
-
+      };
     </script>
 
-
-
-
-
-
-
-
-
-
     <!-- <script src="./static/js/main.js" type="module" ></script> -->
-    
-</body>
+  </body>
 </html>
