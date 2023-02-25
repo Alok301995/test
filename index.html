@@ -23,10 +23,10 @@
             var x = event.acceleration.x;
             var y = event.acceleration.y;
             var z = event.acceleration.z;
-            // document.getElementById("btn").innerHTML = "x : " + x + "\n";
-            // document.getElementById("btn").innerHTML += "y: " + y + "\n";
-            // document.getElementById("btn").innerHTML += "z: " + z + "\n";
-            acc_data.push([x,y,z]);
+            document.getElementById("btn").innerHTML = "x : " + x + "\n";
+            document.getElementById("btn").innerHTML += "y: " + y + "\n";
+            document.getElementById("btn").innerHTML += "z: " + z + "\n";
+            // acc_data.push([x,y,z]);
         }
 
         // get gyroscope data and display in id btn
@@ -46,7 +46,7 @@
             document.getElementById("btn").innerHTML = "acc_data : " + JSON.stringify(acc_data) + "\n";
             // document.getElementById("btn").innerHTML += "gyro_data: " + gyro_data + "\n";
         }
-        display_data();
+        // display_data();
 
         
 
