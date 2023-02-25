@@ -67,8 +67,8 @@
           demo_button.innerHTML = "Start demo";
           demo_button.classList.add("btn-success");
           demo_button.classList.remove("btn-danger");
-
-          console.log(data_point);
+          data_display.innerHTML = JSON.stringify(data_point);
+          data_display.innerHTML = data_point;
 
           is_running = false;
         } else {
@@ -78,11 +78,11 @@
           //   demo_button.classList.remove("btn-success");
           //   demo_button.classList.add("btn-danger");
 
-            data_display.innerHTML = JSON.stringify(data_point);
+            
 
           is_running = true;
         //   counterElement.innerHTML = 0;
-        //   data_point.data.length = 0;
+          data_point.length = 0;
           data_display.innerHTML = "";
         }
       };
