@@ -10,44 +10,26 @@
 
     <p id="btn">hii this is the webiste</p>
 
-
+    
     <script>
-        // get accelerometer data and display in id btn
-        // window.addEventListener("deviceorientation", handleOrientation, true);
-        // function handleOrientation(event) {
-        //     var x = event.beta;  // In degree in the range [-180,180]
-        //     var y = event.gamma; // In degree in the range [-90,90]
-        //     var z = event.alpha; // In degree in the range [0,360]
-        //     document.getElementById("btn").innerHTML = "beta : " + x + "\n";
-        //     document.getElementById("btn").innerHTML += "gamma: " + y + "\n";
-        //     document.getElementById("btn").innerHTML += "alpha: " + z + "\n";
-        // }
-        
 
-        // get accelerometer data and display in id btn
-        // window.addEventListener("devicemotion", handleMotion, true);
-        // function handleMotion(event) {
-        //     var x = event.acceleration.x;
-        //     var y = event.acceleration.y;
-        //     var z = event.acceleration.z;
-        //     document.getElementById("btn").innerHTML = "x : " + x + "\n";
-        //     // document.getElementById("btn").innerHTML += "y: " + y + "\n";
-        //     // document.getElementById("btn").innerHTML += "z: " + z + "\n";
-        // }
+        let btn = document.getElementById('btn');
+        // Accelerometer data with sample rate of 20Hz
+        const options = { frequency: 20 };
+        const sensor = new Accelerometer(options);
+        sensor.addEventListener('reading', e => {
+            // Do something with the sensor values
+            
+            // console.log('Acceleration along X-axis: ' + sensor.x);
+            // console.log('Acceleration along Y-axis: ' + sensor.y);
+            // console.log('Acceleration along Z-axis: ' + sensor.z);
+            btn.innerHTML = 'Acceleration along X-axis: ' + sensor.x + '<br>' + 'Acceleration along Y-axis: ' + sensor.y + '<br>' + 'Acceleration along Z-axis: ' + sensor.z;
+        });
+        
 
 
     </script>
 
-
-
-
-
-
-
-
-
-
-    <script src="./static/js/main.js" type="module" ></script>
     
 </body>
 </html>
