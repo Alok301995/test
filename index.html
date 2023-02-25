@@ -10,26 +10,58 @@
 
     <p id="btn">hii this is the webiste</p>
 
-    
+
     <script>
-
-        let btn = document.getElementById('btn');
-        // Accelerometer data with sample rate of 20Hz
-        const options = { frequency: 20 };
-        const sensor = new Accelerometer(options);
-        sensor.addEventListener('reading', e => {
-            // Do something with the sensor values
-            
-            // console.log('Acceleration along X-axis: ' + sensor.x);
-            // console.log('Acceleration along Y-axis: ' + sensor.y);
-            // console.log('Acceleration along Z-axis: ' + sensor.z);
-            btn.innerHTML = 'Acceleration along X-axis: ' + sensor.x + '<br>' + 'Acceleration along Y-axis: ' + sensor.y + '<br>' + 'Acceleration along Z-axis: ' + sensor.z;
-        });
+        // get accelerometer data and display in id btn
         
+        let acc_data = [];
+        let gyro_data = [];
 
+        // get accelerometer data and display in id btn
+        window.addEventListener("devicemotion", handleMotion, true);
+        function handleMotion(event) {
+            var x = event.acceleration.x;
+            var y = event.acceleration.y;
+            var z = event.acceleration.z;
+            // document.getElementById("btn").innerHTML = "x : " + x + "\n";
+            // document.getElementById("btn").innerHTML += "y: " + y + "\n";
+            // document.getElementById("btn").innerHTML += "z: " + z + "\n";
+            acc_data.push([x,y,z]);
+        }
+
+        // get gyroscope data and display in id btn
+        window.addEventListener("deviceorientation", handleOrientation, true);
+        function handleOrientation(event) {
+            var alpha = event.alpha;
+            var beta = event.beta;
+            var gamma = event.gamma;
+            // document.getElementById("btn").innerHTML = "alpha : " + alpha + "\n";
+            // document.getElementById("btn").innerHTML += "beta: " + beta + "\n";
+            // document.getElementById("btn").innerHTML += "gamma: " + gamma + "\n";
+            gyro_data.push([alpha,beta,gamma]);
+        }
+
+        // display it in btn id
+        function display_data(){
+            document.getElementById("btn").innerHTML = "acc_data : " + acc_data + "\n";
+            document.getElementById("btn").innerHTML += "gyro_data: " + gyro_data + "\n";
+        }
+        display_data();
+
+        
 
     </script>
 
+
+
+
+
+
+
+
+
+
+    <!-- <script src="./static/js/main.js" type="module" ></script> -->
     
 </body>
 </html>
