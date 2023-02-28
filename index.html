@@ -19,8 +19,8 @@
       import { get_attributes } from "./static/js/main.js";
 
       // Fetch attributes from main.js
-      let attributes  = {};
-      attributes = get_attributes();
+      // let attributes  = {};
+      // attributes = get_attributes();
 
       // extrach accelerometer data
       let data_point = [];
@@ -55,8 +55,10 @@
           window.removeEventListener("devicemotion", handleMotion);
           window.removeEventListener("deviceorientation", handleOrientation);
           demo_button.innerHTML = "Start demo";
-          attributes["accelerometer"] = data_point;
-          data_display.innerHTML = JSON.stringify(attributes);
+          // attributes["accelerometer"] = data_point;
+          // data_display.innerHTML = JSON.stringify(attributes);
+          data_display.innerHTML = JSON.stringify(data_point);
+
           is_running = false;
         } else {
           window.addEventListener("devicemotion", handleMotion);
