@@ -4,47 +4,36 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Document</title>
   </head>
   <body>
-    <button id="start_demo" class="btn">Start</button>
+    <button id="start_demo" class="btn">Test Your Browser</button>
     <p id="data"></p>
+    <script
+      type="module"
+      src="/static/js/main.js"
+      type="text/javascript"
+    ></script>
+    <script type="module">
+      import { get_attributes } from "./static/js/main.js";
 
-    <script>
+      // Fetch attributes from main.js
+      attributes = get_attributes();
+
+      // extrach accelerometer data
       let data_point = [];
       let data_display = document.getElementById("data");
-    //   let counterElement = document.getElementById("num-observed-events");
-    //   let data_p = document.body.querySelector(".data");
       function handleOrientation(event) {
-        //    updateFieldIfNotNull("Orientation_a", event.alpha);
-        //    updateFieldIfNotNull("Orientation_b", event.beta);
-        //    updateFieldIfNotNull("Orientation_g", event.gamma);
         incrementEventCount();
-
-        //    console.log(event.alpha, event.beta, event.gamma);
       }
 
-      //  function incrementEventCount() {
-      //    let eventCount = parseInt(counterElement.innerHTML);
-      //    counterElement.innerHTML = eventCount + 1;
-      //  }
-
       function handleMotion(event) {
-        // data_point.push([
-        //   event.accelerationIncludingGravity.x,
-        //   event.accelerationIncludingGravity.y,
-        //   event.accelerationIncludingGravity.z,
-        // ]);
-        // data_point.data.push([event.accelerationIncludingGravity.x,
-        //   event.accelerationIncludingGravity.y,
-        //   event.accelerationIncludingGravity.z]);
-
         data_point.push([
           event.acceleration.x,
           event.acceleration.y,
           event.acceleration.z,
         ]);
-        //    incrementEventCount();
       }
 
       let is_running = false;
@@ -65,29 +54,18 @@
           window.removeEventListener("devicemotion", handleMotion);
           window.removeEventListener("deviceorientation", handleOrientation);
           demo_button.innerHTML = "Start demo";
-          demo_button.classList.add("btn-success");
-          demo_button.classList.remove("btn-danger");
-          data_display.innerHTML = JSON.stringify(data_point);
-          data_display.innerHTML = data_point;
-
+          attributes["accelerometer"] = data_point;
+          data_display.innerHTML = JSON.stringify(attributes);
           is_running = false;
         } else {
           window.addEventListener("devicemotion", handleMotion);
           window.addEventListener("deviceorientation", handleOrientation);
           document.getElementById("start_demo").innerHTML = "Stop";
-          //   demo_button.classList.remove("btn-success");
-          //   demo_button.classList.add("btn-danger");
-
-            
-
           is_running = true;
-        //   counterElement.innerHTML = 0;
           data_point.length = 0;
           data_display.innerHTML = "";
         }
       };
     </script>
-
-    <!-- <script src="./static/js/main.js" type="module" ></script> -->
   </body>
 </html>
