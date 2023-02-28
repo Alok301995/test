@@ -11,15 +11,16 @@
     <button id="start_demo" class="btn">Test Your Browser</button>
     <p id="data"></p>
     <script type="module">
-      // import { get_attributes } from "./static/js/main.js";
+      import { get_attributes } from "./static/js/main.js";
 
       // Fetch attributes from main.js
-      // let attributes  = {};
-      // attributes = get_attributes();
+      let attributes  = {};
+      attributes = get_attributes();
 
       // extrach accelerometer data
       let data_point = [];
       let data_display = document.getElementById("data");
+      
       function handleOrientation(event) {
         incrementEventCount();
       }
